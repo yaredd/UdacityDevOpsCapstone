@@ -1,0 +1,37 @@
+---
+- name: install k3s cluster master
+  hosts: master
+  tasks:
+    - name: get k3s installer
+      get_url: url=https://get.k3s.io dest=/tmp/k3s_installer mode=755
+    - name: run installer
+      command: /tmp/k3s_installer server --tls-san 172.16.3.1 --node-taint CriticalAddonsOnly=true:NoExecute --datastore-endpoint="mysql://k3s:k3sUser@tcp(172.16.3.33:3306)/k3s" 
+
+- name: install k3s cluster agents/workers
+  hosts: all
+  tasks:
+    - name: copy node-token
+      ansible.builtin.fetch:
+        src: /var/lib/rancher/k3s/server/node-token
+        dest: /tmp/node-token
+        flat: yes
+      when: "inventory_hostname == 'wolf'"
+
+    - block:
+      - name: copy node-token
+        copy:
+          src: /tmp/node-token
+          dest: /tmp/node-token
+      - name: save node-token in register
+        shell: cat /tmp/node-token
+        register: nodeToken
+      - name: get k3s install for agent
+        get_url: url=https://get.k3s.io dest=/tmp/k3s_installer mode=755
+      - name: run installer
+        shell: |
+          K3S_URL=https://172.16.3.1:6443 K3S_TOKEN={{nodeToken.stdout}} /tmp/k3s_installer
+      - name: remove copied node-token  
+        file:
+          state: absent
+          path: /tmp/node-token
+      when: "'worker' in group_names"
