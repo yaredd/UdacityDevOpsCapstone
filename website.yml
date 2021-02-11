@@ -44,7 +44,8 @@ metadata:
     kubernetes.io/ingress.class: traefik
 spec:
   rules:
-    - http:
+    - host: wolf
+      http:
         paths:
           - path: /
             backend:
