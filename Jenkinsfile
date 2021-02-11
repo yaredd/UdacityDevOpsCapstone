@@ -43,9 +43,6 @@ pipeline {
     stage("test deployment") {
       steps {
         sh "/var/jenkins_home/kubectl get pods -o wide"
-        sh "/var/jenkins_home/kubectl expose deployment nginx-test-app --name=nginx-test-app --type=NodePort --port=8000 --target-port=80"
-        sh "/var/jenkins_home/kubectl port-forward services/nginx-test-app-service 8000:80"
-        sh "curl localhost:8000"
       }
     }
   }
