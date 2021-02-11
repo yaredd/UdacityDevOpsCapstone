@@ -43,7 +43,7 @@ pipeline {
     stage("test deployment") {
       steps {
         sh "/var/jenkins_home/kubectl get pods -o wide"
-        sh "sleep 60; curl http://172.16.3.7/"
+        sh "sleep 60; curl http://wolf/"
       }
     }
   }
