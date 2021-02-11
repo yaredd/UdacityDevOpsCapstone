@@ -43,7 +43,7 @@ pipeline {
     stage("test deployment") {
       steps {
         sh "/var/jenkins_home/kubectl get pods -o wide"
-        sh "sleep 60; curl http://wolf/"
+        sh "sleep 60; curl -H 'Cache-Control: no-cache' http://wolf/"
       }
     }
   }

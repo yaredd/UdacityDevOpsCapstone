@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: yaredd/nginx-test-app:18
+          image: yaredd/nginx-test-app:latest
           ports:
             - containerPort: 80
 ---
