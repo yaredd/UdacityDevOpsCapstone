@@ -35,8 +35,13 @@ pipeline {
       }
     }
     stage("deploy") {
+      agent {
+        docker {
+          image 'bitnami/kubectl'
+          args '$HOME/kube/config:/.kube/config' }
+      }
       steps {
-        echo "deploy stage"
+        sh "get nodes"
       }
     }
   }
