@@ -17,7 +17,7 @@ kubectl apply -f infra_setup/kubernetes-dashboard.yml
 
 ### Jenkins CI/CD
 
-I have used the dockerized Jenkins setup and configured it to use the local `dockerd daemon via the host's `/var/run/docker.sock`. In addition to the recommended Jenkins plugins, I have installed `kubectl`and configured it with required token for managing the cluster withiyn the Jenkins container. The`kubectl`binary was install in the`jenkins`user's home folder`/var/jenkins_home/kubectl`.
+I have used the dockerized Jenkins setup and configured it to use the local `dockerd` daemon via the host's `/var/run/docker.sock`. In addition to the recommended Jenkins plugins, I have installed `kubectl` and configured it with required token for managing the cluster within the Jenkins container. The `kubectl` binary was installed in the `jenkins` user's home folder `/var/jenkins_home/kubectl`.
 I then setup Jenkins credentials for pushing container images to my [dockerhub](https://hub.docker.com) account.
 Jenkinsfile defines the pipeline.
 
