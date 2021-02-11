@@ -49,5 +49,5 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: nginx-test-appservice
+              serviceName: nginx-test-app-service
               servicePort: 80
