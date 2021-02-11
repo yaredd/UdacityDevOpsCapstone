@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    imageName = 'yaredd/dhcp-ldap-backend-jenkins'
+    imageName = 'yaredd/nginx-test-app'
     dockerImage = ''
   }
 
