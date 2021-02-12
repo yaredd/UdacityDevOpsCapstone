@@ -15,6 +15,8 @@ The K3s setup is carried out using Ansible manifest `infra_setup/install-k3s-clu
 kubectl apply -f infra_setup/kubernetes-dashboard.yml
 ```
 
+The is an on premises Kubernetes cluster installation. I am choosing to setup my own cluster rather than AWS Kluster.
+
 ### Jenkins CI/CD
 
 I have used the dockerized Jenkins setup and configured it to use the local `dockerd` daemon via the host's `/var/run/docker.sock`. In addition to the recommended Jenkins plugins, I have installed `kubectl` and configured it with required token for managing the cluster within the Jenkins container. The `kubectl` binary was installed in the `jenkins` user's home folder `/var/jenkins_home/kubectl`.
@@ -29,3 +31,4 @@ Jenkinsfile defines the pipeline.
 - **success-deployment-2.png** - build number 17 showing the deployment test involving a 1 minute long wait followed by curl command pointing to host and path in Ingress rules.
 - **halfway-thru-rolling-deployment-k8s-dashboard.png** - a screenshot of the dashboard during build number 19 deploying a newer image `yaredd/nginx-test-app:18`. Rolling \*\*deployments means uninterrupted service; newer pods are created before old ones are taken down.
 - **success-rolling-deployment.png** - testing the deployment via a browser -- Note: deployment test is not robust; had to refresh browser to show current deployment. A test invalidating cache is more accurate.
+- **k8s-pods-rolling-deployment.png** - as part of the deployment test, `kubectl get pods -o wide` is run to attest to the successful deployment by showing the pods created. This is a deployment to a **local Kubernetes cluster** not to a AWS Kubernetes.
